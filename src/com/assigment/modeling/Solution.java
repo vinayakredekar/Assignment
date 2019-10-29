@@ -275,6 +275,104 @@ class Cat extends Walking implements NonSingable{
 	}
 }
 
+
+/*
+ * Modelling a Fish. Section B
+ * Abstarction for Aquatic animal who doesn't walk but swim 
+ */
+class AquaticAnimal extends Animal implements Swimmable{
+	EatingBehaviour eatingBehaviour;
+	@Override
+	public String swim() {	
+		return "I am swimming";
+	}
+	
+	public String eat() {
+		return eatingBehaviour.eat();
+	}
+}
+
+/*
+ * Fish Model
+ */
+class Fish extends AquaticAnimal{
+	
+	 String features() {
+		 return "default features";
+	 }
+}
+
+class CarnivoreFish implements EatingBehaviour{
+
+	@Override
+	public String eat() {
+		return "Eat other fish";	
+	}
+}
+
+class HerbivoreFish implements EatingBehaviour{
+
+	@Override
+	public String eat() {
+		return "Eat aquatic plants";	
+	}
+}
+
+
+interface Joker{
+	String joke();
+}
+
+class Shark extends Fish{
+   
+   Shark(){
+	   eatingBehaviour = new CarnivoreFish();
+   }
+
+   @Override
+   String features() {
+	  return "Large and Grey";
+   }
+}
+
+
+class ClownFish extends Fish implements Joker{
+
+	ClownFish(){
+		eatingBehaviour = new HerbivoreFish();
+	}
+	
+	@Override
+	public String joke() {
+		return "Joking";
+		
+	}
+
+	@Override
+	String features() {
+		return "Small and Orange";
+	}
+	
+}
+/*
+ * Modelling a Dolphin
+ */
+class AquaticMammal extends AquaticAnimal {
+	
+	String breathAir() {
+		return "I am breathing air";
+	}
+}
+
+class Dolphin extends AquaticMammal {
+
+	Dolphin(){
+		eatingBehaviour = new CarnivoreFish();	
+	}
+}
+
+
+
 public class Solution {
 	public static void main(String[] args) {
 		System.out.println("***************************");
@@ -362,6 +460,47 @@ public class Solution {
 		System.out.println("Mimicing Rooster :"+mimicRooster.mimic());
 		
 		System.out.println("Mimicing Phone :"+mimicPhone.mimic());
+		
+		
+		System.out.println();
+		System.out.println();
+		System.out.println("***************************");
+		System.out.println("Section B : Fish Modelling");
+		System.out.println("***************************");
+		
+		System.out.println();
+		System.out.println();
+		System.out.println("***************************");
+		System.out.println("Shark features");
+		System.out.println("***************************");
+	   
+	    Fish shark = new Shark();
+	    System.out.println(shark.eat());
+	    System.out.println(shark.features());
+	   
+	    System.out.println();
+		System.out.println();
+		System.out.println("***************************");
+		System.out.println("ClownFish features");
+		System.out.println("***************************");
+	   
+		ClownFish clownFish = new ClownFish();
+	    System.out.println( clownFish.eat());
+	    System.out.println(clownFish.features());
+	    System.out.println(clownFish.joke());
+	    
+	    
+	    System.out.println();
+		System.out.println();
+		System.out.println("***************************");
+		System.out.println("Dophnin beahviour");
+		System.out.println("***************************");
+	   //Dolpin 
+		Dolphin dolpin = new Dolphin();
+		System.out.println(dolpin.breathAir());
+		System.out.println(dolpin.swim());
+		System.out.println(dolpin.eat());
+		
 	}
 	
 	
@@ -378,6 +517,10 @@ public class Solution {
 	Cat cat;
 	Phone phone;
 	Bird originalParrot;
+	Fish shark;
+	Animal sharkAnimal;
+	Fish clownFish;
+	AquaticAnimal dolphin;
 	
 	
 	@Before
@@ -395,6 +538,10 @@ public class Solution {
 		parrotMimicCat = new Parrot(new Cat());
 		parrotMimicPhone = new Parrot(new Phone());
 		originalParrot = new Parrot();
+		shark = new Shark();
+		sharkAnimal = new Shark();
+		clownFish = new ClownFish();
+		dolphin = new Dolphin();
 	}
 	
 	@Test
@@ -455,6 +602,38 @@ public class Solution {
 	public void test_Parrot_with_No_Mimic() {
 		assertEquals(originalParrot.sing(), originalParrot.mimic());
 		
+	}
+	
+	@Test
+	public void test_Shark_Can_Not_Sing_OR_Walk() {
+		assertFalse(shark instanceof Singable);
+		assertFalse(sharkAnimal instanceof Walking);
+	}
+	
+	@Test
+	public void test_Shark_Can_Not_Swim() {
+		assertTrue(sharkAnimal instanceof Swimmable);
+	}	
+	
+	@Test
+	public void test_Shark_is_a_Joker() {
+		assertFalse(shark instanceof Joker);
+	}
+	
+	@Test
+	public void test_Clown_Fish_is_Not_A_Carnivore() {
+		assertFalse(clownFish.eatingBehaviour instanceof CarnivoreFish);
+	}
+	
+	
+	@Test
+	public void test_Dolphin_Is_Not_A_Fish() {
+		assertFalse(dolphin instanceof Fish);
+	}
+	
+	
+	public void test_Dolphin_Can_Breath_Air() {
+		assertTrue(dolphin instanceof AquaticMammal);
 	}
 }
 

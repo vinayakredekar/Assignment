@@ -1,5 +1,5 @@
 # Assignment
-## Section A 
+## Section A : Modeling Animal
 ### Sub Section 1
 Optimization in the Animal Class 
 * Not all animals can walk, making Animal class as base for representation of any animal.
@@ -16,4 +16,11 @@ Optimization in the Animal Class
 * Rooster can be implemented with Composition and Inheritence. A maintainable Rooster with same behavior as inherited can achieved with composition. 
 
 ## Sub Section 4
-* Parrot can mimic any object that is mimicable, living or non-living. Thus improving the parraots ability to mimic any sound.
+* Parrot can mimic any object that is mimicable, living or non-living. Thus improving the parrots ability to mimic any sound.
+
+#Section B
+## Modeling a Fish
+* Fish can swim but cannot walk or fly. Each Fish has peculiar features to display.
+* Abstraction of animal that can swim is maintainable.
+* Dolphin is not a Fish, however, it can swim. Can be easily extended from Abstract AquaticAnimal
+* Further Abstarction can be created for for AquaticMammals. Apprently, Dolphin is aquatic mammal. This could be useful if we want to extend for similar types e.g Whale
