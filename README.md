@@ -14,3 +14,6 @@ Optimization in the Animal Class
 ### Sub Section 3
 * Rooster belong to the same family as Chicken, both are Domestic
 * Rooster can be implemented with Composition and Inheritence. A maintainable Rooster with same behavior as inherited can achieved with composition. 
+
+## Sub Section 4
+* Parrot can mimic any object that is mimicable, living or non-living. Thus improving the parraots ability to mimic any sound.
