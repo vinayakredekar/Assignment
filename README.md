@@ -23,4 +23,9 @@ Optimization in the Animal Class
 * Fish can swim but cannot walk or fly. Each Fish has peculiar features to display.
 * Abstraction of animal that can swim is maintainable.
 * Dolphin is not a Fish, however, it can swim. Can be easily extended from Abstract AquaticAnimal
-* Further Abstarction can be created for for AquaticMammals. Apprently, Dolphin is aquatic mammal. This could be useful if we want to extend for similar types e.g Whale
+* Further Abstraction can be created for for AquaticMammals. Apprently, Dolphin is aquatic mammal. This could be useful if we want to extend for similar types e.g Whale
+
+#Section D
+## Modeling a butterfly
+* Creating a interface type MetaMorphosable(ignore if no such word). Basically a category animals who under go a metamorphosis with some variable, usually age.
+* Depending on the age of days the butterfly(or caterpillar), change in behavior is demonstarted.

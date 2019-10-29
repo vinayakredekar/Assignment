@@ -29,6 +29,11 @@ class Walk implements Moveable{
 	}
 }
 
+class Crawl implements Moveable{
+	public String move() {
+		return "I am Crawling";
+	}
+}
 
 interface Singable extends Mimicable{
 	String sing();
@@ -372,6 +377,34 @@ class Dolphin extends AquaticMammal {
 }
 
 
+interface Metamorphosable {
+	void metamorphose();
+}
+
+
+class ButterFly extends Terrestrial implements Metamorphosable{
+	FlyBehaviour flyingBehaviour = new Flightless();
+	Moveable moveable = new Crawl();
+	ButterFly(int age){
+		if(age > 14) metamorphose();
+	}
+	
+	String fly() {
+		return flyingBehaviour.fly();
+	}
+
+	String move() {
+		return moveable.move();
+	}
+	
+	@Override
+	public void metamorphose() {
+		flyingBehaviour = new Flying();
+		moveable = new Walk();
+	}
+	
+}
+
 
 public class Solution {
 	public static void main(String[] args) {
@@ -501,6 +534,33 @@ public class Solution {
 		System.out.println(dolpin.swim());
 		System.out.println(dolpin.eat());
 		
+		
+		System.out.println();
+		System.out.println();
+		System.out.println("***************************");
+		System.out.println("Butterfly  Metamorphosis");
+		System.out.println("***************************");
+	   
+	   //ButterFly
+	   ButterFly caterpiller = new ButterFly(5);
+	   System.out.println();
+		System.out.println();
+	   System.out.println("***************************");
+	   System.out.println("Catepillar  behavior");
+	   System.out.println("***************************");
+	   System.out.println(caterpiller.fly());
+	   System.out.println(caterpiller.move());
+		
+	   System.out.println();
+	   System.out.println();
+	   System.out.println("***************************");
+	   System.out.println("ButterFly  behavior");
+	   System.out.println("***************************");
+	   System.out.println();
+	   System.out.println();
+	   ButterFly butterFly = new ButterFly(17);
+	   System.out.println(butterFly.fly());
+	   System.out.println(butterFly.move());
 	}
 	
 	
@@ -521,6 +581,8 @@ public class Solution {
 	Animal sharkAnimal;
 	Fish clownFish;
 	AquaticAnimal dolphin;
+	ButterFly caterpiller;
+	ButterFly butterFly;
 	
 	
 	@Before
@@ -542,6 +604,8 @@ public class Solution {
 		sharkAnimal = new Shark();
 		clownFish = new ClownFish();
 		dolphin = new Dolphin();
+		caterpiller = new ButterFly(6); //6 days old
+		butterFly = new ButterFly(18); //Adult butterfly
 	}
 	
 	@Test
@@ -631,9 +695,21 @@ public class Solution {
 		assertFalse(dolphin instanceof Fish);
 	}
 	
-	
+	@Test
 	public void test_Dolphin_Can_Breath_Air() {
 		assertTrue(dolphin instanceof AquaticMammal);
+	}
+	
+	@Test
+	public void test_catepillar_fly_And_Walk() {
+		assertFalse(caterpiller.flyingBehaviour instanceof Flying);
+		assertFalse(caterpiller.moveable instanceof Walk);
+	}
+	
+	@Test
+	public void test_ButterFly_Fly_And_Walk() {
+		assertTrue(butterFly.flyingBehaviour instanceof Flying);
+		assertTrue(butterFly.moveable instanceof Walk);
 	}
 }
 
