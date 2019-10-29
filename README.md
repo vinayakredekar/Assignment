@@ -29,3 +29,11 @@ Optimization in the Animal Class
 ## Modeling a butterfly
 * Creating a interface type MetaMorphosable(ignore if no such word). Basically a category animals who under go a metamorphosis with some variable, usually age.
 * Depending on the age of days the butterfly(or caterpillar), change in behavior is demonstarted.
+
+#Section E 
+## Counting Animals
+Logic Explained
+  1. Fly Count : If Animal is instance of a bird and has flying behaviour.
+  2. Walk Count: If animal is a instance of Walking animal.
+  3. Sing Count : If Animal is a instance of Singable.
+  4. Swim Count : If Animal is instance of Swimmable.

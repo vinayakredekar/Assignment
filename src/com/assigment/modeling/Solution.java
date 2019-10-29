@@ -35,6 +35,12 @@ class Crawl implements Moveable{
 	}
 }
 
+class Jump implements Moveable{
+	public String move() {
+		return "I am Jumping";
+	}
+}
+
 interface Singable extends Mimicable{
 	String sing();
 	
@@ -166,6 +172,14 @@ class RoosterSingingBehaviour implements SingingBehaviour{
 	@Override
 	public String sing() {
 		return "Cock-a-doodle-doo";
+	}
+}
+
+class FrogSingingBehaviour implements SingingBehaviour{
+
+	@Override
+	public String sing() {
+		return "Grup,Grup";
 	}
 }
 
@@ -406,6 +420,38 @@ class ButterFly extends Terrestrial implements Metamorphosable{
 }
 
 
+class Amphibian extends AquaticAnimal implements SingingBehaviour{
+	Moveable moveable;
+	SingingBehaviour singable;
+	
+	String move() {
+		return moveable.move();
+	}
+	@Override
+	public String sing() {
+		return singable.sing();
+	}
+}
+
+	
+
+class Frog extends Amphibian{
+	
+	Frog(){
+		singable = new FrogSingingBehaviour();
+		moveable = new Jump();
+	}
+	
+	public String move() {
+		return moveable.move();
+	}
+	
+	public String sing() {
+		return singable.sing();
+	}
+}
+
+
 public class Solution {
 	public static void main(String[] args) {
 		System.out.println("***************************");
@@ -561,6 +607,56 @@ public class Solution {
 	   ButterFly butterFly = new ButterFly(17);
 	   System.out.println(butterFly.fly());
 	   System.out.println(butterFly.move());
+	   
+	   //Modelling a frog
+	   System.out.println();
+	   System.out.println();
+	   System.out.println("***************************");
+	   System.out.println("Frog  behavior");
+	   System.out.println("***************************");
+	   Frog frog = new Frog();
+	   System.out.println(frog.move());
+	   System.out.println(frog.sing());
+	   
+	   
+	   //Section E
+	   
+	   Animal[] animals = new Animal[]{
+			   new Bird(), //Walk, Sing
+			   new Duck(), //Fly, Walk, Sing, Swim
+			   new Chicken(), //Walk, Sing
+			   new Rooster(), //Walk, Sing
+			   new Parrot(), //Fly, Sing
+			   new Fish(), //Swim
+			   new Shark(), //Swim
+			   new ClownFish(),//Swim
+			   new Dolphin(), //Swim
+			   new Frog(),//Sing //Swim
+			   new Dog(), //Walk
+			   new ButterFly(17), //Fly
+			   new Cat() //Walk
+			   };
+	   
+	   int flyCount = 0;
+	   int walkCount = 0;
+	   int singCount  = 0;
+	   int swimCount = 0;
+	   for(Animal animal : animals) {
+		   if((animal instanceof Bird) &&(((Bird)animal).flyBehaviour instanceof Flying)) flyCount++;
+		   if(animal instanceof Walking) walkCount++;
+		   if((animal instanceof SingingBehaviour) || (animal instanceof Singable)) singCount++;
+		   if(animal instanceof Swimmable) swimCount++;
+	   }
+	   
+	   System.out.println();
+	   System.out.println();
+	   System.out.println("***************************");
+	   System.out.println("Counting Animals");
+	   System.out.println("***************************");
+	   System.out.println("Fly count"+flyCount);
+	   System.out.println("Walk count"+walkCount);
+	   System.out.println("Sing count"+singCount);
+	   System.out.println("Swim count"+swimCount);
 	}
 	
 	
