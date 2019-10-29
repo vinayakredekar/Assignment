@@ -104,6 +104,8 @@ class Chicken extends DomesticBird  {
 	}
 }
 
+
+
 interface Swimmable{
 	String swim();
 }
@@ -121,6 +123,71 @@ class Duck extends AquaticBird {
 	
 	public String sing() {
 		return "Quack, quack";
+	}
+}
+
+/*
+ * Section 3.1, 3.b,3.c 
+ */
+class Rooster extends DomesticBird  {
+
+	public String sing() {
+		return "Cock-a-doodle-doo";
+	}
+}
+
+interface  SingingBehaviour{
+	String sing();
+}
+
+class RoosterSingingBehaviour implements SingingBehaviour{
+
+	@Override
+	public String sing() {
+		return "Cock-a-doodle-doo";
+	}
+}
+
+/*
+ * Eating Behaviour
+ */
+interface EatingBehaviour {
+	String eat();
+}
+
+class DomesticEatingBehaviour implements EatingBehaviour{
+
+	@Override
+	public String eat() {
+		return "I eat only grains!";
+	}
+}
+
+class RoosterB{ //Without inheritance, using composition
+	FlyBehaviour flyBehaviour;
+	EatingBehaviour eatingBehaviour;
+	SingingBehaviour singingBehaviour;
+	
+	RoosterB(){
+		flyBehaviour = new Flightless();
+		eatingBehaviour = new DomesticEatingBehaviour();
+		singingBehaviour = new RoosterSingingBehaviour();
+	}
+		
+	String eat() {
+		return eatingBehaviour.eat();
+	}
+	
+	String sing() {
+		return singingBehaviour.sing();
+	}
+	
+	String fly() {
+		return flyBehaviour.fly();
+	}
+	
+	String walk() {
+		return "I am walking";
 	}
 }
 
@@ -162,12 +229,36 @@ public class Solution {
 		System.out.println(duck.sing());
 		System.out.println(duck.fly());
 		System.out.println(duck.swim());
+		
+		System.out.println();
+		System.out.println();
+		System.out.println("***************************");
+		System.out.println("Rooster Behaviour with inheritence");
+		
+		Bird rooster = new Rooster();
+		System.out.println(rooster.eat());
+		System.out.println(rooster.walk());
+		System.out.println(rooster.sing());
+		System.out.println(rooster.fly());
+		
+		System.out.println();
+		System.out.println();
+		System.out.println("***************************");
+		System.out.println("Rooster Behaviour without inheritence");
+		
+		RoosterB roosterB = new  RoosterB();
+		System.out.println(roosterB.eat());
+		System.out.println(roosterB.walk());
+		System.out.println(roosterB.sing());
+		System.out.println(roosterB.fly());
 	}
 	
 	
 	Bird bird;
 	Bird chicken;
 	Duck duck;
+	Bird rooster;
+	RoosterB roosterB;
 	
 	
 	@Before
@@ -175,6 +266,8 @@ public class Solution {
 		bird = new Bird();
 		chicken = new Chicken();
 		duck = new Duck();
+		rooster = new Rooster();
+		roosterB = new RoosterB();
 	}
 	
 	@Test
@@ -203,5 +296,23 @@ public class Solution {
 		assertEquals("Cluck,cluck", chicken.sing());
 	}
 	
+	//3.a
+	@Test
+	public void test_Rooster_with_inheritence_can_Cock_a_doodle_doo() {
+		assertEquals("Cock-a-doodle-doo", rooster.sing());
+	}
+	
+	//3.b
+	@Test
+	public void test_Chicken_And_Rooster_Belong_To_Same_Family() {
+		assertTrue((chicken instanceof DomesticBird) && (rooster instanceof DomesticBird)); 
+	}
+	
+	//3.c
+	@Test
+	public void test_Rooster_with_compisition_can_Cock_a_doodle_doo() {
+		assertEquals("Cock-a-doodle-doo", roosterB.sing());
+	}
+
 }
 
